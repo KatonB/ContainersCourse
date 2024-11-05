@@ -1,0 +1,23 @@
+# Использование легковесного базового образа с указанием конкретной версии
+FROM python:3.9-slim
+
+# Устанавливаем необходимые пакеты в одном слое и очищаем кэш.
+RUN apt-get update && apt-get install -y gcc python3-dev libpq-dev && rm -rf /var/lib/apt/lists/*
+
+# Устанавливаем рабочую директорию.
+WORKDIR /api
+
+# Копируем файлы в рабочую директорию.
+COPY . /api
+
+RUN python3 -m venv /api/venv
+
+# Устанавливаем переменные окружения в одном слое.
+ENV PATH="/api/venv/bin:$PATH" PYTHONPATH="/api"
+
+# Устанавливаем зависимости без сохранения кэшированных файлов во время установки.
+RUN pip install --no-cache-dir -r /api/requirements.txt
+
+EXPOSE 8000
+
+ENTRYPOINT ["python3", "/api/main.py"]
