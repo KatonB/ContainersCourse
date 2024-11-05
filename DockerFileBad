@@ -1,0 +1,28 @@
+# Используем тяжелый базовый образ последней версии х_х.
+FROM ubuntu:latest
+
+# Устанавливаем необходимые пакеты отдельными слоями, не объединяя и не очищая кэш пакетов.
+# Как следствие - рост размера образа.
+RUN apt-get update
+RUN apt-get install -y gcc
+RUN apt-get install -y python3-venv
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-dev
+RUN apt-get install -y libpq-dev
+
+# Использование ADD, вместо COPY там, где в этом нет необходимости (нет распаковки архивов или обращения по URL).
+# Использование ADD делает образ более непрдесказуемым т.к. в отличие от обычного копирования, ADD автоматически
+# распаковывает архивы и обращается по URL, что может нарушить структуру проекта и привести к ошибкам из-за сетевой
+# зависимости.
+# + не устанавливаем рабочую директорию, работам в корне))))))).
+ADD .  /
+
+RUN python3 -m venv /venv
+
+ENV PATH="/venv/bin:$PATH"
+
+RUN pip install -r /requirements.txt
+
+EXPOSE 8000
+
+ENTRYPOINT ["python3", "/main.py"]
