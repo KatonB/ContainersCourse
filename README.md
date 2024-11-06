@@ -102,7 +102,7 @@ For local verification:
 
 ### HW 2
 The CD pipeline has been updated to run containers/services using docker compose. You can enjoy yourself at the link.
-You can find it [here](boba.com).
+You can find it [here](https://github.com/KatonB/ContainersCourse/actions/runs/11704393281/job/32596750540).
 
 For local checking:
 
