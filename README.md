@@ -1,4 +1,4 @@
-# DockerCourse
+# ContainersCourse
 ## Project Structure
 ```
 ├─.github/: 
