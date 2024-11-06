@@ -39,12 +39,7 @@ jobs:
       - name: Build and run bad container API
         run: |
           docker build -t shop_api_bad -f docker/DockerFileBad .
-          docker run --name shop_api_bad_container --network api_container -p 8000:8000 -v shop_api_volume:/api_data shop_api_bad &
-
-      - name: Check if API is reachable
-        run: |
-          curl -f http://localhost:8080/docs || exit 1 
-          curl -f http://localhost:8000/docs || exit 1
+          docker run --name shop_api_bad_container --network api_container -p 8081:8000 -v shop_api_volume:/api_data shop_api_bad &
 
       - name: Install Docker Compose
         run: |
@@ -55,3 +50,11 @@ jobs:
       - name: Set up Docker Compose
         run: |
           docker-compose -p containerscourse --env-file .env -f docker/docker-compose.yml up -d
+
+      - name: Check if API is reachable
+        run: |
+          curl -f http://localhost:8080/docs || exit 1 
+          curl -f http://localhost:8081/docs || exit 1
+          curl -f http://localhost:8000/docs || exit 1
+          curl -f http://localhost:3000 || exit 1
+          curl -f http://localhost:9090 || exit 1
