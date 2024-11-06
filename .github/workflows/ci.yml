@@ -51,6 +51,9 @@ jobs:
         run: |
           docker-compose -p containerscourse --env-file .env -f docker/docker-compose.yml up -d
 
+      - name: Wait for containers to be ready
+        run: sleep 10
+
       - name: Check if API is reachable
         run: |
           curl -f http://localhost:8080/docs || exit 1 
