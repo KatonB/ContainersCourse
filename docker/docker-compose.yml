@@ -34,6 +34,7 @@ services:
     container_name: shop_api
     networks:
       - shop_network
+    restart: always
     ports:
       - 8000:8000
     command: uvicorn hw2.main:app --host 0.0.0.0 --port 8000
