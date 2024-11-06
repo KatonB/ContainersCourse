@@ -61,7 +61,7 @@ For local verification:
    **Good Container API**
    - build
    ```bash
-   docker build -t shop_api_good -f DockerFileGood .
+   docker build -t shop_api_good -f docker/DockerFileGood .
    ```
    - run
    ```bash
@@ -70,11 +70,11 @@ For local verification:
    **Bad Container API**
    - build
    ```bash
-   docker build -t shop_api_bad -f DockerFileBad .
+   docker build -t shop_api_bad -f docker/DockerFileBad .
    ```
    - run
    ```bash
-   docker run -d --name shop_api_bad_container --network api_container -p 8000:8000 -v shop_api_volume:/api_data shop_api_bad
+   docker run -d --name shop_api_bad_container --network api_container -p 8081:8000 -v shop_api_volume:/api_data shop_api_bad
    ```
 6. Test API by SWAGGER UI:
     - Open the following link in your browser and test the API by sending requests to the server:
@@ -83,7 +83,7 @@ For local verification:
     ```
    for the good container and
     ```
-    http://localhost:8000/docs
+    http://localhost:8081/docs
     ```
    for the bad container.
 
