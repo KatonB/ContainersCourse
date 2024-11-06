@@ -33,12 +33,12 @@ jobs:
 
       - name: Build and run good container API
         run: |
-          docker build -t shop_api_good -f docker/DockerFileGood ../
+          docker build -t shop_api_good -f docker/DockerFileGood .
           docker run --name shop_api_good_container --network api_container -p 8080:8000 -v shop_api_volume:/api_data shop_api_good &
 
       - name: Build and run bad container API
         run: |
-          docker build -t shop_api_bad -f docker/DockerFileBad ../
+          docker build -t shop_api_bad -f docker/DockerFileBad .
           docker run --name shop_api_bad_container --network api_container -p 8000:8000 -v shop_api_volume:/api_data shop_api_bad &
 
       - name: Check if API is reachable
